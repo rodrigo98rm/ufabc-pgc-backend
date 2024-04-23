@@ -6,8 +6,16 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+app.use(express.json());
+
+app.post('/login', (req: Request, res: Response) => {
+  const { body } = req;
+
+  if (body.email === 'rodrigo@teste.com' && body.password === '123456') {
+    return res.status(200).send();
+  }
+
+  return res.status(401).send();
 });
 
 app.listen(port, () => {
